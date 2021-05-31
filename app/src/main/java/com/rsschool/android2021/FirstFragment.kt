@@ -46,15 +46,40 @@ class FirstFragment : Fragment() {
         maxEdit = view.findViewById(R.id.max_value)
 
         generateButton?.setOnClickListener {
-            var min = Integer.valueOf(minEdit?.text.toString())
-            var max = Integer.valueOf(maxEdit?.text.toString())
+            var minStr = minEdit?.text.toString()
+            var maxStr = maxEdit?.text.toString()
 
-            if(min<max) {
+            if(validateInputValues(minStr, maxStr)) {
+                var min = Integer.valueOf(minStr)
+                var max = Integer.valueOf(maxStr)
                 listener?.onGenerateButtonClicked(min, max)
-            } else {
-              Toast.makeText(context, "Minimal value should be less then Maximal", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    fun validateInputValues(minStr: String, maxStr:String) :Boolean {
+        var max = 0;
+        var min = 0;
+
+        try {
+            min = Integer.valueOf(minStr)
+        } catch (e: Exception){
+            Toast.makeText(context, "Incorrect MIN value", Toast.LENGTH_LONG).show()
+            return false;
+        }
+        try {
+            max = Integer.valueOf(maxStr)
+        } catch (e: Exception){
+            Toast.makeText(context, "Incorrect MAX value", Toast.LENGTH_LONG).show()
+            return false;
+        }
+
+        if(min>max) {
+            Toast.makeText(context, "Minimal value should be less then Maximal", Toast.LENGTH_LONG).show()
+            return false;
+        }
+
+        return true;
     }
 
     interface GenerateButtonClickedListenerInterface {
