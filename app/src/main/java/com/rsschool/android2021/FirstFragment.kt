@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 
 class FirstFragment : Fragment() {
@@ -47,7 +48,12 @@ class FirstFragment : Fragment() {
         generateButton?.setOnClickListener {
             var min = Integer.valueOf(minEdit?.text.toString())
             var max = Integer.valueOf(maxEdit?.text.toString())
-            listener?.onGenerateButtonClicked(min, max)
+
+            if(min<max) {
+                listener?.onGenerateButtonClicked(min, max)
+            } else {
+              Toast.makeText(context, "Minimal value should be less then Maximal", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
