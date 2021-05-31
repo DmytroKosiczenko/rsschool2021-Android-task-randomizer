@@ -61,6 +61,16 @@ class FirstFragment : Fragment() {
         var max = 0;
         var min = 0;
 
+        if(minStr.length == 0) {
+            Toast.makeText(context, "Minimal value is empty", Toast.LENGTH_LONG).show()
+            return false;
+        }
+
+        if(maxStr.length == 0) {
+            Toast.makeText(context, "Maximal value is empty", Toast.LENGTH_LONG).show()
+            return false;
+        }
+
         try {
             min = Integer.valueOf(minStr)
         } catch (e: Exception){
@@ -74,7 +84,7 @@ class FirstFragment : Fragment() {
             return false;
         }
 
-        if(min>max) {
+        if(min>=max) {
             Toast.makeText(context, "Minimal value should be less then Maximal", Toast.LENGTH_LONG).show()
             return false;
         }
